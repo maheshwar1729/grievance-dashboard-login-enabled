@@ -5,6 +5,8 @@ function Login({ onLogin }) {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL?.replace(/\/$/, "");
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -13,23 +15,22 @@ function Login({ onLogin }) {
     e.preventDefault();
     setError("");
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL?.replace(/\/$/, "");
+    const params = new URLSearchParams();
+    params.append("username", form.username);
+    params.append("password", form.password);
 
     try {
-      const params = new URLSearchParams();
-      params.append("username", form.username);
-      params.append("password", form.password);
-
+      console.log("Sending request to:", `${backendUrl}/login`);
       const res = await axios.post(`${backendUrl}/login`, params, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-
+      console.log("Login successful:", res.data);
       localStorage.setItem("token", res.data.access_token);
       onLogin();
     } catch (err) {
-      console.error("Login error:", err.response?.data || err.message);
+      console.error("Login failed:", err.response?.data || err.message);
       setError("Invalid credentials");
     }
   };
@@ -55,10 +56,7 @@ function Login({ onLogin }) {
             placeholder="Password"
             className="w-full p-2 border rounded-md"
           />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md font-bold"
-          >
+          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md font-bold">
             Login
           </button>
         </form>
