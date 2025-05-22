@@ -13,8 +13,9 @@ function Login({ onLogin }) {
     e.preventDefault();
     setError("");
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL?.replace(/\/$/, "");
+
     try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL?.replace(/\/$/, ""); // Remove trailing slash
       const params = new URLSearchParams();
       params.append("username", form.username);
       params.append("password", form.password);
@@ -26,8 +27,9 @@ function Login({ onLogin }) {
       });
 
       localStorage.setItem("token", res.data.access_token);
-      onLogin(); // navigate to dashboard
+      onLogin();
     } catch (err) {
+      console.error("Login error:", err.response?.data || err.message);
       setError("Invalid credentials");
     }
   };
