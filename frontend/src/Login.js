@@ -11,25 +11,18 @@ function Login({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const params = new URLSearchParams();
-    params.append("username", form.username);
-    params.append("password", form.password);
-
+    setError(""); // clear old error
     try {
-      const res = await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/login",
-        params,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const baseURL = process.env.REACT_APP_BACKEND_URL.replace(/\/$/, ""); // remove trailing slash if any
+      const params = new URLSearchParams(form);
+
+      const res = await axios.post(`${baseURL}/login`, params, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      });
+
       localStorage.setItem("token", res.data.access_token);
-      onLogin(); // Call the parent login handler
+      onLogin();
     } catch (err) {
-      console.error(err);
       setError("Invalid credentials");
     }
   };
@@ -42,8 +35,8 @@ function Login({ onLogin }) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="username"
-            value={form.username}
             onChange={handleChange}
+            value={form.username}
             required
             placeholder="Username"
             className="w-full p-2 border rounded-md"
@@ -51,15 +44,15 @@ function Login({ onLogin }) {
           <input
             name="password"
             type="password"
-            value={form.password}
             onChange={handleChange}
+            value={form.password}
             required
             placeholder="Password"
             className="w-full p-2 border rounded-md"
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md font-bold"
+            className="w-full bg-blue-600 text-white py-2 rounded-md font-bold hover:bg-blue-700 transition"
           >
             Login
           </button>
