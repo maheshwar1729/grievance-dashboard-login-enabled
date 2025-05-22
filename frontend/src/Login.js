@@ -11,13 +11,25 @@ function Login({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const params = new URLSearchParams();
+    params.append("username", form.username);
+    params.append("password", form.password);
+
     try {
-      const res = await axios.post("http://localhost:8000/login", new URLSearchParams(form), {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      });
+      const res = await axios.post(
+        process.env.REACT_APP_BACKEND_URL + "/login",
+        params,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
       localStorage.setItem("token", res.data.access_token);
-      onLogin();
-    } catch {
+      onLogin(); // Call the parent login handler
+    } catch (err) {
+      console.error(err);
       setError("Invalid credentials");
     }
   };
@@ -28,11 +40,27 @@ function Login({ onLogin }) {
         <h2 className="text-xl font-bold text-center mb-6">🔐 Login</h2>
         {error && <p className="text-red-500 mb-2">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input name="username" onChange={handleChange} required placeholder="Username"
-            className="w-full p-2 border rounded-md" />
-          <input name="password" type="password" onChange={handleChange} required placeholder="Password"
-            className="w-full p-2 border rounded-md" />
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md font-bold">
+          <input
+            name="username"
+            value={form.username}
+            onChange={handleChange}
+            required
+            placeholder="Username"
+            className="w-full p-2 border rounded-md"
+          />
+          <input
+            name="password"
+            type="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            placeholder="Password"
+            className="w-full p-2 border rounded-md"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md font-bold"
+          >
             Login
           </button>
         </form>
