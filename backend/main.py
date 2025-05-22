@@ -52,3 +52,7 @@ def submit_grievance(
 ):
     send_email(title, description, mood, severity)
     return {"message": "Grievance submitted."}
+    
+@app.get("/")
+def root():
+    return {"status": "Backend is up and running"}
