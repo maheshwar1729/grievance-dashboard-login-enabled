@@ -1,11 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 
+// Read the backend URL from the environment variable
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 function Login({ onLogin }) {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
-
-  const backendUrl = process.env.REACT_APP_BACKEND_URL?.replace(/\/$/, "");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,20 +14,16 @@ function Login({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
     const params = new URLSearchParams();
     params.append("username", form.username);
     params.append("password", form.password);
 
     try {
-      console.log("Sending request to:", `${backendUrl}/login`);
       const res = await axios.post(`${backendUrl}/login`, params, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      console.log("Login successful:", res.data);
       localStorage.setItem("token", res.data.access_token);
       onLogin();
     } catch (err) {
@@ -44,6 +41,7 @@ function Login({ onLogin }) {
           <input
             name="username"
             onChange={handleChange}
+            value={form.username}
             required
             placeholder="Username"
             className="w-full p-2 border rounded-md"
@@ -52,11 +50,15 @@ function Login({ onLogin }) {
             name="password"
             type="password"
             onChange={handleChange}
+            value={form.password}
             required
             placeholder="Password"
             className="w-full p-2 border rounded-md"
           />
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md font-bold">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md font-bold"
+          >
             Login
           </button>
         </form>
