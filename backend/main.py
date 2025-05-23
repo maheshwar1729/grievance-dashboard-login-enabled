@@ -19,7 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-PARTNER_EMAIL = "partner@example.com"  # Replace this
+PARTNER_EMAIL = "maheshwar.traveller@gmail.com"  # Replace this
 SENDER_EMAIL = os.getenv("GMAIL_USER")
 APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 
