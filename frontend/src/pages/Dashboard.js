@@ -62,13 +62,23 @@ function Dashboard({ onLogout }) {
             className="w-full p-3 border border-pink-300 rounded-md" required>
             <option value="">Severity</option>
             <option>Need more flowers 💐</option>
+            <option>I am on periods with lot of pain 😢</option>
+            <option>I want to do more shopping 💖</option> 
             <option>Need lot of love, kisses and hugs 💕😘🤗</option>
             <option>I wish you are here with me 😢🤗</option>
             <option>Now I became dark circle panda 🐼</option>
+            <option>I need money 🤗</option>
+            <option>Surprise me 💞🤗</option>
+            <option>Good Morning 💕😘🤗</option>
+            <option>Good Night, Sleep well, Sweet dreams, take care 💕😘🤗</option>
+            <option>Take care 💕😘🤗</option>
+            <option>Lets go to Temple 💕😘🤗</option>
+            <option>Have a Nice day 💕😘🤗</option>
+            <option>Stay Strong and be Happy always, Smile please 💕😘🤗</option>
             <option>I'm hungry 🍲</option>
-            <option>Angry 😠</option>
+            <option>I am Angry 😠</option>
             <option>I love you 💖</option>
-            <option>I'm lazy and sleepy 😴</option>
+            <option>I'm too lazy and sleepy 😴</option>
             <option>Let's travel together 🏍️</option>
             <option>Missing you a lot 💞🤗</option>
           </select>
