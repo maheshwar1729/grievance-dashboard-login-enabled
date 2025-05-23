@@ -70,6 +70,7 @@ function Dashboard({ onLogout }) {
             <option>Now I became dark circle panda 🐼</option>
             <option>I need money 🤗</option>
             <option>Surprise me 💞🤗</option>
+              <option>I dont like my co-workers 😠😢</option>
             <option>Good Morning 💕😘🤗</option>
             <option>Good Night, Sleep well, Sweet dreams, take care 💕😘🤗</option>
             <option>Take care 💕😘🤗</option>
