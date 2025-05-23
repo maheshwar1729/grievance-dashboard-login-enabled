@@ -62,6 +62,7 @@ function Dashboard({ onLogout }) {
             className="w-full p-3 border border-pink-300 rounded-md" required>
             <option value="">Severity</option>
             <option>Need more flowers 💐</option>
+            <option>I want to do nakhra/drama</option>
             <option>I am on periods with lot of pain 😢</option>
             <option>I want to do more shopping 💖</option> 
             <option>Need lot of love, kisses and hugs 💕😘🤗</option>
